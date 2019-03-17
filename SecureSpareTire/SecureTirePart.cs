@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using ModApi;
+﻿using ModApi;
 using ModApi.Attachable;
 using UnityEngine;
-using MSCLoader;
 
 namespace TommoJProductions.SecureSpareTire
 {
@@ -103,9 +101,6 @@ namespace TommoJProductions.SecureSpareTire
                             Object.Destroy(this.rigidPart); // Destorying previous rigid (installed) part.
                             this.rigidPart = Object.Instantiate(inCollider.gameObject); // Creating a new gameobject for the rigid (installed) part
                             Object.Destroy(this.rigidPart.GetComponent<Rigidbody>()); // Destorying any rigidbody to stop the gameobject
-                            // Destorying all objects on the rigid part (installed instance of the wheel).
-                            foreach (Object _obj in this.rigidPart.GetComponents<Object>().Where(_obj => !(_obj is BoxCollider) && !(_obj is Rigid)))
-                                Object.Destroy(_obj);
                             this.rigidPart.AddComponent<Rigid>().part = this; // Adding rigid logic.. the mono contains disassemble logic.
                             this.makePartPickable(false, inPartInstance: PartInstanceTypeEnum.Rigid);// Sets the tag to 'DontPickThis' as this makes the Gameobject not pick-a-up-able.. :)
                             this.rigidPart.transform.SetParent(this.parent.transform, false); // Setting parent of spare tire
