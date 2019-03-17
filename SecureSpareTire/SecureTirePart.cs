@@ -33,11 +33,11 @@ namespace TommoJProductions.SecureSpareTire
         /// <summary>
         /// Represents the tire down rotation.
         /// </summary>
-        private static readonly Quaternion tireDownRotation = Quaternion.Euler(0, 0, 270);
+        internal static readonly Quaternion tireDownRotation = Quaternion.Euler(0, 0, 270);
         /// <summary>
         /// Represents the tire up rotation.
         /// </summary>
-        private static readonly Quaternion tireUpRotation = Quaternion.Euler(0, 0, 90);
+        internal static readonly Quaternion tireUpRotation = Quaternion.Euler(0, 0, 90);
 
         #endregion
 

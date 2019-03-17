@@ -55,7 +55,7 @@ namespace TommoJProductions.SecureSpareTire
                 parent,
                 trigger,
                 new Vector3(0, -0.053f, -1.45f), // Install position
-                Quaternion.Euler(0, 0, 270));// Install rotation
+                SecureTirePart.tireUpRotation);// Install rotation
             ModConsole.Print(string.Format("{0} v{1}: Loaded.", this.Name, this.Version));
         }
 
@@ -63,7 +63,14 @@ namespace TommoJProductions.SecureSpareTire
         {
             // Written, 17.03.2019
 
-            //this.saveData();
+            try
+            {
+                SaveLoad.SerializeSaveFile(this, this.secureTirePart.getSaveInfo(), FILE_NAME);
+            }
+            catch (Exception ex)
+            {
+                ModConsole.Error("<b>[SecureSpareTireMod]</b> - an error occured while attempting to save part info.. see: " + ex.ToString());
+            }
         }
         private PartSaveInfo loadData()
         {
