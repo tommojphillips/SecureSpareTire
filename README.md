@@ -6,7 +6,7 @@ A mod for My Summer Car that implements the feature to secure any of the tires i
 
 ## How to Install <i>Secure Spare Tire v0.1</i>:
 
-1. Please support me by downloading and reviewing my mod on racedepartment, [Secure Spare Tire](notalinkyet.com)
+1. Please support me by downloading and reviewing my mod on racedepartment, [Secure Spare Tire](https://www.racedepartment.com/downloads/secure-spare-tire.25909/)
 2. Unpack/Exract the contents of "<i>SecureSpareTire_v0.1.rar</i>" with WinRAR
 3. Copy "<i>SecureSpareTire.dll</i>" to your Mods folder, eg. "<i>C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods</i>"
 4. Copy "<i>modapi_v0120-alpha.dll</i>" to your References folder (located in your Mods folder.), eg. "<i>C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods\References</i>"
