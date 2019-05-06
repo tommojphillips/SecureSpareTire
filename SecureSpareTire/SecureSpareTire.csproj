@@ -33,15 +33,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecureSpareTireMod.cs" />
-    <Compile Include="SecureTirePart.cs" />
+    <Compile Include="SecureSpareWheelMod.cs" />
+    <Compile Include="SecureSpareWheelMono.cs" />
+    <Compile Include="SecureWheelPart.cs" />
+    <Compile Include="SecureWheelSaveData.cs" />
+    <Compile Include="DeleteTireMono.cs" />
+    <Compile Include="ResetWheelMono.cs" />
+    <Compile Include="WheelTypeEnum.cs" />
+    <Compile Include="WheelIDEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\mysummercar_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="modapi_v0120-alpha">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods\References\modapi_v0120-alpha.dll</HintPath>
+    <Reference Include="modapi_v0121-alpha">
+      <HintPath>..\..\..\..\..\..\SteamLibrary\steamapps\common\My Summer Car\Mods\References\modapi_v0121-alpha.dll</HintPath>
     </Reference>
     <Reference Include="MSCLoader">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\mysummercar_Data\Managed\MSCLoader.dll</HintPath>
@@ -56,12 +62,14 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if "$(ConfigurationName)" == "Debug" (
-copy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods" /y
-copy "$(TargetDir)$(TargetName).pdb" "C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods" /y
-cd "C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods"
-call "C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods\debug.bat"
+copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\My Summer Car\Mods" /y
+copy "$(TargetDir)$(TargetName).pdb" "D:\SteamLibrary\steamapps\common\My Summer Car\Mods" /y
+cd "D:\SteamLibrary\steamapps\common\My Summer Car\Mods"
+call "D:\SteamLibrary\steamapps\common\My Summer Car\Mods\debug.bat"
+cd "D:\SteamLibrary\steamapps\common\My Summer Car\Mods"
+del "D:\SteamLibrary\steamapps\common\My Summer Car\Mods\$(TargetName).pdb"
 ) ELSE (
-copy "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\My Summer Car\Mods" /y
+copy "$(TargetPath)" "D:\SteamLibraary\steamapps\common\My Summer Car\Mods" /y
 )</PostBuildEvent>
   </PropertyGroup>
 </Project>
