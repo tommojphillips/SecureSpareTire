@@ -48,8 +48,10 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\mysummercar_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="modapi_v0132-alpha">
-      <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\Mods\References\modapi_v0132-alpha.dll</HintPath>
+    <Reference Include="modapi_v014-alpha, Version=0.1.4.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\Mods\References\modapi_v014-alpha.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MSCLoader">
       <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\mysummercar_Data\Managed\MSCLoader.dll</HintPath>
