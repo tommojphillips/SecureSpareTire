@@ -1,7 +1,7 @@
 # Secure Spare Tire Mod
 A mod for My Summer Car that implements the feature to secure any of the tires in the Satsuma's trunk!
 
-- Secure Spare Tire v0.1.2 runs on [Mod API v0140-alpha](https://github.com/tommojphillips/ModAPI/releases/tag/0.1.4-alpha)
+- Secure Spare Tire v0.1.2 runs on [Mod API v0140-alpha](https://github.com/tommojphillips/ModAPI/releases/tag/v0.1.4-alpha)
 - Designed for MSCModLoader v1.1.16, My Summer Car exper Branch #11
 
 ## How to Install <i>Secure Spare Tire v0.1.2</i>:
