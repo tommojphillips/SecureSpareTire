@@ -79,10 +79,15 @@ namespace TommoJProductions.SecureSpareTire
                 PlayMakerFSM useFsm = wheel.GetPlayMaker("Use");
                 PlayMakerFSM removalFsm = wheel.GetPlayMaker("Removal");
                 string wheelID = useFsm.FsmVariables.GetFsmString("ID").Value;
+                bool isThisWheelInstall = false;
+                if (saveData?.installedWheelID == wheelID)
+                {
+                    isThisWheelInstall = useFsm.FsmVariables.GetFsmString("Corner").Value == "";
+                }
 
                 wheelParts[i] = wheel.AddComponent<Part>();
                 wheelParts[i].defaultSaveInfo = new PartSaveInfo() { installed = wheelID == "wheel_steel5" && !removalFsm.enabled };
-                wheelParts[i].initPart(saveData?.installedWheelID == wheelID ? new PartSaveInfo() { installed = true } : null, settings, trigger);
+                wheelParts[i].initPart(isThisWheelInstall ? new PartSaveInfo() { installed = true } : null, settings, trigger);
             }
             ModConsole.Print(string.Format("{0} v{1}: Loaded.", Name, Version));
         }

@@ -14,23 +14,6 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -48,10 +31,8 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\mysummercar_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="modapi_v014-alpha, Version=0.1.4.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\Mods\References\modapi_v014-alpha.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+    <Reference Include="modapi_v0142-alpha">
+      <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\Mods\References\modapi_v0142-alpha.dll</HintPath>
     </Reference>
     <Reference Include="MSCLoader">
       <HintPath>D:\Games\SteamApps\steamapps\common\My Summer Car\mysummercar_Data\Managed\MSCLoader.dll</HintPath>
