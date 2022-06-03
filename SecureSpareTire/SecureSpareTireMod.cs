@@ -1,7 +1,6 @@
-﻿using System;
+﻿using MSCLoader;
+using System;
 using System.Linq;
-using MSCLoader;
-using TommoJProductions.ModApi;
 using TommoJProductions.ModApi.Attachable;
 using UnityEngine;
 using static TommoJProductions.ModApi.Attachable.Part;
@@ -15,7 +14,7 @@ namespace TommoJProductions.SecureSpareTire
 
         #region mod classes
 
-        public class SaveData 
+        public class SaveData
         {
             public string installedWheelID;
             public static SaveData getWheelSaveData(Part[] parts)
@@ -35,17 +34,17 @@ namespace TommoJProductions.SecureSpareTire
 
         public override string ID => "SecureSpareTire";
         public override string Name => "Secure Spare Tire";
-        public override string Version => "0.1.2";
+        public override string Version => typeof(SecureSpareTireMod)?.Assembly.GetName().Version.ToString();
         public override string Author => "tommojphillips";
         public override bool SecondPass => true;
-        
+
         #endregion
 
         #region Fields
 
         public const string FILE_NAME = "SecureSpareTire.txt";
 
-        public static string[] vaildWheelNames = new string[] 
+        public static string[] vaildWheelNames = new string[]
         {
             "wheel_regula", // All stock and some aftermarket rims are called this.
             "wheel_offset", // Most aftermarket rims are called this.
@@ -68,9 +67,15 @@ namespace TommoJProductions.SecureSpareTire
 
             saveData = loadData();
 
-            Trigger trigger = new Trigger("spareTireTrigger", satsuma,  new Vector3(0, -0.053f, -1.45f), Vector3.forward * 90);
+            Trigger trigger = new Trigger("spareTireTrigger", satsuma, new Vector3(0, -0.053f, -1.45f), Vector3.forward * 90);
             AssemblyTypeJointSettings jointSettings = new AssemblyTypeJointSettings(satsuma.GetComponent<Rigidbody>());
-            PartSettings settings = new PartSettings() { assembleType = AssembleType.joint, installedPartToLayer = LayerMasksEnum.DontCollide, setPositionRotationOnInitialisePart = false, assemblyTypeJointSettings = jointSettings };
+            PartSettings settings = new PartSettings()
+            {
+                assembleType = AssembleType.joint,
+                setPositionRotationOnInitialisePart = false,
+                assemblyTypeJointSettings = jointSettings,
+                setPhysicsMaterialOnInitialisePart = true
+            };
 
             for (int i = 0; i < wheels.Length; i++)
             {
