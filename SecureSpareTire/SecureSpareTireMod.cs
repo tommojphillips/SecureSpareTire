@@ -1,6 +1,8 @@
 ﻿using MSCLoader;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using TommoJProductions.ModApi;
 using TommoJProductions.ModApi.Attachable;
 using UnityEngine;
 using static TommoJProductions.ModApi.Attachable.Part;
@@ -17,24 +19,29 @@ namespace TommoJProductions.SecureSpareTire
         public class SaveData
         {
             public string installedWheelID;
+            public bool installedRightSideUp;
+
             public static SaveData getWheelSaveData(Part[] parts)
             {
                 SaveData sd = new SaveData();
-                int indexOfInstalled = Array.IndexOf(parts, parts.Where(_p => _p.installed).ToArray()?[0]);
-                if (indexOfInstalled > -1)
+                IEnumerable<Part> installedParts = parts.Where(_p => _p.installed);
+                if (installedParts.Any())
+                {
+                    int indexOfInstalled = Array.IndexOf(parts, installedParts.First());
                     sd.installedWheelID = parts[indexOfInstalled].gameObject.GetPlayMaker("Use").FsmVariables.GetFsmString("ID").Value;
+                    sd.installedRightSideUp = parts[indexOfInstalled].triggers[0].triggerGameObject.transform.localEulerAngles.z.round() <= 90;
+                }
                 return sd;
             }
         }
 
         #endregion
 
-
         #region Mod Properties
 
         public override string ID => "SecureSpareTire";
         public override string Name => "Secure Spare Tire";
-        public override string Version => typeof(SecureSpareTireMod)?.Assembly.GetName().Version.ToString();
+        public override string Version => VersionInfo.version;
         public override string Author => "tommojphillips";
         public override bool SecondPass => true;
 
@@ -57,7 +64,14 @@ namespace TommoJProductions.SecureSpareTire
 
         #region Mod Methods
 
-        public override void SecondPassOnLoad()
+        public override void ModSetup()
+        {
+            SetupFunction(Setup.OnLoad, onLoad);
+            SetupFunction(Setup.OnSave, onSave);
+            SetupFunction(Setup.OnNewGame, newGame);
+        }
+
+        private void onLoad()
         {
             // Written, 20.09.2021
 
@@ -68,6 +82,8 @@ namespace TommoJProductions.SecureSpareTire
             saveData = loadData();
 
             Trigger trigger = new Trigger("spareTireTrigger", satsuma, new Vector3(0, -0.053f, -1.45f), Vector3.forward * 90);
+            trigger.onPartPreAssembledToTrigger -= trigger_onPartPreAssembledToTrigger;
+            trigger.onPartPreAssembledToTrigger += trigger_onPartPreAssembledToTrigger;
             AssemblyTypeJointSettings jointSettings = new AssemblyTypeJointSettings(satsuma.GetComponent<Rigidbody>());
             PartSettings settings = new PartSettings()
             {
@@ -76,27 +92,49 @@ namespace TommoJProductions.SecureSpareTire
                 assemblyTypeJointSettings = jointSettings,
                 setPhysicsMaterialOnInitialisePart = true
             };
-
+            GameObject wheel;
+            PlayMakerFSM useFsm;
+            PlayMakerFSM removalFsm;
+            string wheelID;
+            bool canWheelBeInstalled;
             for (int i = 0; i < wheels.Length; i++)
             {
-                GameObject wheel = wheels[i];
+                wheel = wheels[i];
+                useFsm = wheel.GetPlayMaker("Use");
+                removalFsm = wheel.GetPlayMaker("Removal");
+                wheelID = useFsm.FsmVariables.GetFsmString("ID").Value;
+                canWheelBeInstalled = false;
 
-                PlayMakerFSM useFsm = wheel.GetPlayMaker("Use");
-                PlayMakerFSM removalFsm = wheel.GetPlayMaker("Removal");
-                string wheelID = useFsm.FsmVariables.GetFsmString("ID").Value;
-                bool isThisWheelInstall = false;
                 if (saveData?.installedWheelID == wheelID)
                 {
-                    isThisWheelInstall = useFsm.FsmVariables.GetFsmString("Corner").Value == "";
+                    canWheelBeInstalled = useFsm.FsmVariables.GetFsmString("Corner").Value == "";
                 }
 
                 wheelParts[i] = wheel.AddComponent<Part>();
-                wheelParts[i].defaultSaveInfo = new PartSaveInfo() { installed = wheelID == "wheel_steel5" && !removalFsm.enabled };
-                wheelParts[i].initPart(isThisWheelInstall ? new PartSaveInfo() { installed = true } : null, settings, trigger);
+                wheelParts[i].defaultSaveInfo = new PartSaveInfo() { installed = saveData == null && wheelID == "wheel_steel5" && !removalFsm.enabled };
+                wheelParts[i].initPart(canWheelBeInstalled ? new PartSaveInfo() { installed = true } : null, settings, trigger);
             }
             ModConsole.Print(string.Format("{0} v{1}: Loaded.", Name, Version));
         }
-        public override void OnSave()
+
+        private void trigger_onPartPreAssembledToTrigger(Trigger arg1)
+        {
+            // Written, 26.06.2022
+
+            float rot = Vector3.Dot(arg1.triggerCallback.part.transform.up, Vector3.up);
+            ModConsole.Print(rot);
+            if (rot > 0 && rot < 270)
+            {
+                rot = 90;
+            }
+            else
+            {
+                rot = 270;
+            }
+            arg1.triggerGameObject.transform.localEulerAngles = Vector3.forward * rot;
+        }
+
+        private void onSave()
         {
             // Written, 17.03.2019
 
@@ -108,6 +146,10 @@ namespace TommoJProductions.SecureSpareTire
             {
                 ModConsole.Error("<b>[SecureSpareTireMod]</b> - an error occured while attempting to save part info.. see: " + ex.ToString());
             }
+        }
+        private void newGame() 
+        {
+            onSave();
         }
 
         #endregion
