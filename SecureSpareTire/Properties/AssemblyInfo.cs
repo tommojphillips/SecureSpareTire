@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿// VERSION 1.3
+using System.Reflection;
 using System.Resources;
 
 // General Information
@@ -8,20 +9,28 @@ using System.Resources;
 [assembly: AssemblyCompany("Tommo J. Productions")]
 [assembly: AssemblyProduct("SecureSpareTire")]
 [assembly: AssemblyCopyright("Tommo J. Productions Copyright © 2023")]
-[assembly: AssemblyTrademark("Azine")]
 [assembly: NeutralResourcesLanguage("en-AU")]
 
 // Version information
-[assembly: AssemblyVersion("1.1.457.3")]
-[assembly: AssemblyFileVersion("1.1.457.3")]
+[assembly: AssemblyVersion("1.2.0.65")]
+[assembly: AssemblyFileVersion("1.2.0.65")]
 
 namespace TommoJProductions.SecureSpareTire
 {
-
+    
+    /// <summary>
+    /// Represents the version info for SecureSpareTire
+    /// </summary>
     public class VersionInfo
     {
-	    public const string lastestRelease = "03.04.2023 07:17 PM";
-	    public const string version = "1.1.457.3";
+        /// <summary>
+        /// Represents latest release version date. Format: dd:MM:yyyy hh:mm tt
+        /// </summary>
+	    public const string lastestRelease = "28.07.2023 06:50 PM";
+        /// <summary>
+        /// Represents current version.
+        /// </summary>
+	    public const string version = "1.2.0.65";
 
         /// <summary>
         /// Represents if the mod has been complied for x64
